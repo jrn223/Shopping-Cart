@@ -1,4 +1,5 @@
 
+import datetime as dt
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -23,7 +24,50 @@ products = [
 ] # Products based on data from Instacart: https://www.instacart.com/datasets/grocery-shopping-2017
 
 
+date_time = dt.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+product_ids=list()
+valid_ids=["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"]
 while (True):
     user_input = input ("Please input a product identifier, or 'DONE' if there are no more items:")
     if user_input == "DONE":
         break
+    if user_input not in valid_ids:
+        print("Hey, are you sure that product identifier is correct? Please try again!")
+    else:
+        product_ids.append(int(user_input))
+
+prices = list()
+
+print("SHOPPING CART ITEM IDENTIFIERS INCLUDE:" + str(product_ids))
+
+print("------------------------------")
+print("JESS'S COUNTRY MARKET")
+print("------------------------------")
+print("Web: www.jessmart.com")
+print("Phone: 1.410.JES.MART")
+print("Checkout Time: " + str(date_time))
+print("------------------------------")
+print("Shopping Cart Items:")
+
+for input_id in product_ids:
+    for item in products:
+        if input_id == item["id"]:
+            print(" + " + item["name"] + " (" + '${0:.2f}'.format(item["price"]) + ")")
+            prices.append(item["price"])
+
+print("------------------------------")
+
+sub_total = (sum(prices))
+
+print("Subtotal: " + "$" + str(sub_total))
+
+tax = .08875*sub_total
+
+print("Plus NYC Sales Tax (8.875%): " + '${0:.2f}'.format(tax))
+
+total = sub_total + tax
+
+print("Total: " + '${0:.2f}'.format(total))
+
+print("------------------------------")
+print("Thanks for your business! Please come again.")
